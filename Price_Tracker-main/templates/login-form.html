@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход - Price Tracker{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 450px; margin: 2rem auto;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <a href="/login/" style="color: var(--gray); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <i class="fas fa-arrow-left"></i> Назад
+        </a>
+        <div style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">
+            <i class="fas fa-key"></i>
+        </div>
+        <h1 style="color: var(--secondary); margin-bottom: 0.5rem;">Вход в аккаунт</h1>
+        <p style="color: var(--gray);">Введите ваши данные для входа</p>
+    </div>
+
+    <form method="post" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div>
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--dark); font-weight: 500;">
+                Email или имя пользователя
+            </label>
+            <input type="text" name="username" required
+                   style="width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;"
+                   placeholder="Введите ваш email или username">
+        </div>
+
+        <div>
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--dark); font-weight: 500;">
+                Пароль
+            </label>
+            <input type="password" name="password" required
+                   style="width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; transition: all 0.3s ease;"
+                   placeholder="Введите ваш пароль">
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--dark);">
+                <input type="checkbox" name="remember">
+                Запомнить меня
+            </label>
+            <a href="/forgot-password/" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">
+                Забыли пароль?
+            </a>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1.1rem;">
+            <i class="fas fa-sign-in-alt"></i> Войти
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+        <p style="color: var(--gray); margin-bottom: 1rem;">Еще нет аккаунта?</p>
+        <a href="/register/" class="btn btn-outline" style="width: 100%;">
+            <i class="fas fa-user-plus"></i> Создать аккаунт
+        </a>
+    </div>
+</div>
+{% endblock %}

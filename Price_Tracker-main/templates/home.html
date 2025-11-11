@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Price Tracker{% endblock %}
+
+{% block content %}
+<!-- Добавляем кнопку авторизации в верхний правый угол -->
+<div style="position: absolute; top: 20px; right: 20px;">
+    <a href="/login" class="btn btn-primary" style="padding: 8px 16px;">
+        <i class="fas fa-sign-in-alt"></i> Авторизация
+    </a>
+</div>
+
+<div class="card text-center">
+    <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        <i class="fas fa-chart-line"></i> Price Tracker
+    </h1>
+    <p style="font-size: 1.2rem; color: var(--gray); margin-bottom: 2rem;">
+        Умная система отслеживания цен и рекомендаций для покупок
+    </p>
+
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="🔍 Введите ссылку на товар или название...">
+        <button class="btn btn-primary">
+            <i class="fas fa-search"></i> Отслеживать
+        </button>
+    </div>
+</div>
+
+<div class="card">
+    <h2 style="text-align: center; margin-bottom: 2rem; color: var(--secondary);">
+        <i class="fas fa-star"></i> Почему выбирают нас?
+    </h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        <div style="text-align: center; padding: 1.5rem;">
+            <div style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem;">Умный анализ</h3>
+            <p style="color: var(--gray);">Анализируем погоду, сезонность, праздники и курсы валют</p>
+        </div>
+
+        <div style="text-align: center; padding: 1.5rem;">
+            <div style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem;">Своевременные уведомления</h3>
+            <p style="color: var(--gray);">Получайте алерты в лучший момент для покупки</p>
+        </div>
+
+        <div style="text-align: center; padding: 1.5rem;">
+            <div style="font-size: 3rem; color: var(--warning); margin-bottom: 1rem;">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem;">Детальная аналитика</h3>
+            <p style="color: var(--gray);">Графики цен и рекомендации на основе данных</p>
+        </div>
+    </div>
+</div>
+
+<!-- Блок с призывом к действию -->
+<div style="text-align: center; margin: 3rem 0;">
+    <h3 style="margin-bottom: 1.5rem; color: var(--secondary);">
+        Начните экономить на покупках прямо сейчас!
+    </h3>
+
+
+    <p style="margin-top: 1rem; color: var(--gray); font-size: 0.9rem;">
+        Присоединяйтесь к тысячам довольных пользователей
+    </p>
+</div>
+
+<!-- Блок с возможностями после авторизации -->
+<div class="card" style="background: linear-gradient(135deg, var(--light-bg), #f8f9fa);">
+    <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary);">
+        <i class="fas fa-lock-open"></i> После авторизации вы получите:
+    </h3>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: center;">
+        <div>
+            <i class="fas fa-list-alt" style="color: var(--accent); font-size: 1.5rem;"></i>
+            <p style="margin: 0.5rem 0; font-weight: bold;">Личный список товаров</p>
+        </div>
+        <div>
+            <i class="fas fa-bell" style="color: var(--success); font-size: 1.5rem;"></i>
+            <p style="margin: 0.5rem 0; font-weight: bold;">Уведомления о скидках</p>
+        </div>
+        <div>
+            <i class="fas fa-chart-line" style="color: var(--warning); font-size: 1.5rem;"></i>
+            <p style="margin: 0.5rem 0; font-weight: bold;">Графики изменения цен</p>
+        </div>
+        <div>
+            <i class="fas fa-cog" style="color: var(--danger); font-size: 1.5rem;"></i>
+            <p style="margin: 0.5rem 0; font-weight: bold;">Настройки уведомлений</p>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

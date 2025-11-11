@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Авторизация - Price Tracker{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 500px; margin: 2rem auto;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <div style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;">
+            <i class="fas fa-sign-in-alt"></i>
+        </div>
+        <h1 style="color: var(--secondary); margin-bottom: 0.5rem;">Вход в систему</h1>
+        <p style="color: var(--gray);">Выберите способ авторизации</p>
+    </div>
+
+    <!-- Блок выбора действия -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+        <a href="/login-form/" class="btn btn-primary" style="padding: 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-key" style="font-size: 1.5rem;"></i>
+            <span>Войти</span>
+        </a>
+        <a href="/register/" class="btn btn-outline" style="padding: 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-user-plus" style="font-size: 1.5rem;"></i>
+            <span>Регистрация</span>
+        </a>
+    </div>
+
+
+
+    <!-- Преимущества -->
+    <div style="text-align: center;">
+        <h4 style="color: var(--secondary); margin-bottom: 1rem;">Преимущества регистрации</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: left;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-bell" style="color: var(--success);"></i>
+                <span style="font-size: 0.9rem;">Уведомления</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-chart-line" style="color: var(--accent);"></i>
+                <span style="font-size: 0.9rem;">Аналитика</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-mobile-alt" style="color: var(--warning);"></i>
+                <span style="font-size: 0.9rem;">Telegram бот</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-history" style="color: var(--primary);"></i>
+                <span style="font-size: 0.9rem;">История цен</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Дополнительная информация -->
+<div class="card" style="max-width: 500px; margin: 1rem auto; text-align: center;">
+    <p style="color: var(--gray); margin-bottom: 1rem;">
+        <i class="fas fa-shield-alt" style="color: var(--success);"></i>
+        Ваши данные защищены
+    </p>
+    <p style="font-size: 0.9rem; color: var(--gray);">
+        Присоединяйтесь к <strong>10,000+</strong> пользователей, которые уже экономят с нами
+    </p>
+</div>
+{% endblock %}

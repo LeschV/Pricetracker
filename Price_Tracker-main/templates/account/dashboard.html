@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет - Price Tracker{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1 style="color: var(--secondary); margin-bottom: 2rem;">
+        <i class="fas fa-user-circle"></i> Личный кабинет
+    </h1>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+        <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 700;">{{ tracked_products|length }}</div>
+            <div>Отслеживаемых товаров</div>
+        </div>
+        <div style="background: linear-gradient(135deg, var(--success), #22d3ee); color: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 700;">12</div>
+            <div>Активных уведомлений</div>
+        </div>
+        <div style="background: linear-gradient(135deg, var(--warning), #f59e0b); color: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 700;">3</div>
+            <div>Выгодных предложений</div>
+        </div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+    <div class="card">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">
+            <i class="fas fa-bell"></i> Последние уведомления
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #f0f9ff; border-radius: 10px; border-left: 4px solid var(--success);">
+                <div style="font-size: 1.5rem; color: var(--success);">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div style="flex: 1;">
+                    <div style="font-weight: 600;">Цена на iPhone 15 упала на 15%</div>
+                    <div style="color: var(--gray); font-size: 0.9rem;">Рекомендуем к покупке</div>
+                </div>
+                <div style="color: var(--gray); font-size: 0.8rem;">2 часа назад</div>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #fff7ed; border-radius: 10px; border-left: 4px solid var(--warning);">
+                <div style="font-size: 1.5rem; color: var(--warning);">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div style="flex: 1;">
+                    <div style="font-weight: 600;">Цена на ноутбук растет</div>
+                    <div style="color: var(--gray); font-size: 0.9rem;">Рост на 8% за неделю</div>
+                </div>
+                <div style="color: var(--gray); font-size: 0.8rem;">1 день назад</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">
+            <i class="fas fa-cog"></i> Настройки
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <button class="btn btn-outline" style="justify-content: start;">
+                <i class="fas fa-envelope"></i> Настройки email
+            </button>
+            <button class="btn btn-outline" style="justify-content: start;">
+                <i class="fab fa-telegram"></i> Telegram уведомления
+            </button>
+            <button class="btn btn-outline" style="justify-content: start;">
+                <i class="fas fa-bell"></i> Частота уведомлений
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
