@@ -56,6 +56,52 @@ TEMPLATES = [
     },
 ]
 
+import os
+from pathlib import Path
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# В блоке TEMPLATES добавь DIRS:
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],  # ВАЖНО!
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+# Добавь accounts в INSTALLED_APPS
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # 'accounts',  # ПОКА ЗАКОММЕНТИРУЙ
+]
+
+# Укажи кастомную модель пользователя
+#AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Настройки аутентификации
+#LOGIN_REDIRECT_URL = '/'
+#LOGOUT_REDIRECT_URL = '/'
+#LOGIN_URL = '/login-form/'
+
 WSGI_APPLICATION = 'pricetracker.wsgi.application'
 
 # Database
