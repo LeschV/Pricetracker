@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Поиск товаров - Price Tracker{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1 style="text-align: center; color: var(--secondary); margin-bottom: 2rem;">
+        <i class="fas fa-search"></i> Умный поиск товаров
+    </h1>
+
+    <form method="post" style="max-width: 600px; margin: 0 auto;">
+        {% csrf_token %}
+        <div class="search-box" style="max-width: 100%;">
+            <input type="text" name="product_name" class="search-input"
+                   placeholder="🔍 Введите название товара (например: iPhone 15, ноутбук, кроссовки)..."
+                   required style="font-size: 1.1rem;">
+            <button type="submit" class="btn btn-primary" style="padding: 15px 30px;">
+                <i class="fas fa-rocket"></i> Найти лучшие цены
+            </button>
+        </div>
+    </form>
+
+    <div style="text-align: center; margin-top: 3rem;">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Как это работает?</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;">
+                    <i class="fas fa-search-dollar"></i>
+                </div>
+                <h4>Поиск по маркетплейсам</h4>
+                <p style="color: var(--gray);">Анализируем Amazon, Wildberries, Ozon и другие</p>
+            </div>
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h4>AI анализ цен</h4>
+                <p style="color: var(--gray);">Предсказываем лучшее время для покупки</p>
+            </div>
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="font-size: 3rem; color: var(--warning); margin-bottom: 1rem;">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h4>Умные уведомления</h4>
+                <p style="color: var(--gray);">Сообщаем когда цена достигает цели</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

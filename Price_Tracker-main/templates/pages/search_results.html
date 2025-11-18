@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Результаты поиска - Price Tracker{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 2rem;">
+        <h1 style="color: var(--secondary); margin: 0;">
+            Результаты поиска: "{{ search_query }}"
+        </h1>
+        <span style="color: var(--gray);">Найдено: {{ results_count }} товаров</span>
+    </div>
+
+    <!-- Сезонный совет -->
+    {% if seasonal_advice %}
+    <div class="card" style="background: linear-gradient(135deg, var(--success), #10B981); color: white; margin-bottom: 2rem;">
+        <h3 style="margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-brain"></i> AI Рекомендация
+        </h3>
+        <p style="margin: 0; font-size: 1.1rem; opacity: 0.9;">
+            {{ seasonal_advice.recommendation }}
+        </p>
+        <div style="display: flex; gap: 2rem; margin-top: 1rem; font-size: 0.9rem;">
+            <div>Лучший месяц: <strong>{{ seasonal_advice.best_month }}</strong></div>
+            <div>Ожидаемая скидка: <strong>до {{ seasonal_advice.expected_discount }}%</strong></div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Результаты поиска -->
+    <div style="display: grid; gap: 1.5rem;">
+        {% for product in results %}
+        <div class="card" style="display: flex; gap: 1.5rem; align-items: start;">
+            <img src="{{ product.image_url }}" alt="{{ product.title }}"
+                 style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">
+
+            <div style="flex: 1;">
+                <h3 style="margin: 0 0 0.5rem 0; color: var(--dark);">{{ product.title }}</h3>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <span style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">
+                        {{ product.price }} ₽
+                    </span>
+                    <span style="background: {% if product.marketplace == 'amazon' %}var(--warning){% else %}var(--accent){% endif %};
+                          color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">
+                        {{ product.marketplace|upper }}
+                    </span>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <a href="{{ product.url }}" target="_blank" class="btn btn-primary" style="padding: 8px 16px;">
+                        <i class="fas fa-external-link-alt"></i> Перейти к товару
+                    </a>
+                    <button class="btn btn-outline track-btn" data-product='{{ product|json_encoding }}' style="padding: 8px 16px;">
+                        <i class="fas fa-bell"></i> Отслеживать цену
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div style="text-align: center; padding: 3rem; color: var(--gray);">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">
+                <i class="fas fa-search"></i>
+            </div>
+            <h3>Товары не найдены</h3>
+            <p>Попробуйте изменить запрос или проверьте подключение к интернету</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.track-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const productData = JSON.parse(this.dataset.product);
+            const targetPrice = prompt('Введите целевую цену для отслеживания:', productData.price);
+
+            if (targetPrice) {
+                fetch('/account/track-product/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        product: productData,
+                        target_price: parseFloat(targetPrice)
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Товар добавлен для отслеживания!');
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

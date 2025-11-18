@@ -1,0 +1,326 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет - Price Tracker{% endblock %}
+
+{% block content %}
+<div class="card">
+    <!-- Заголовок и кнопка выхода -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1 style="color: var(--secondary); margin: 0;">
+            <i class="fas fa-user-circle"></i> Личный кабинет
+        </h1>
+        <a href="{% url 'logout' %}" class="btn btn-outline" style="padding: 10px 20px;">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+        </a>
+    </div>
+
+    <!-- Основная информация пользователя -->
+    <div class="card" style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; margin-bottom: 2rem;">
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <div style="font-size: 4rem; opacity: 0.9;">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div style="flex: 1;">
+                <h2 style="margin: 0 0 0.5rem 0; font-size: 1.8rem;">{{ user.username }}</h2>
+                <div style="display: grid; grid-template-columns: auto auto; gap: 1rem; opacity: 0.9;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope"></i>
+                        <span>{{ user.email }}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Зарегистрирован: {{ user.date_joined|date:"d.m.Y" }}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-clock"></i>
+                        <span>В системе: {{ user.date_joined|timesince }}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Статус: {% if user.is_staff %}Администратор{% else %}Пользователь{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Статистика и быстрые действия в одной строке -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+        <!-- Статистика -->
+        <div class="card">
+            <h3 style="color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-chart-pie"></i> Моя статистика
+            </h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div style="text-align: center; padding: 1.5rem; background: rgba(67, 97, 238, 0.08); border-radius: 12px; border: 2px solid rgba(67, 97, 238, 0.1);">
+                    <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem;">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--dark); margin-bottom: 0.5rem;">0</div>
+                    <div style="color: var(--gray); font-size: 0.9rem;">Отслеживаемых товаров</div>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: rgba(76, 201, 240, 0.08); border-radius: 12px; border: 2px solid rgba(76, 201, 240, 0.1);">
+                    <div style="font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem;">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--dark); margin-bottom: 0.5rem;">0</div>
+                    <div style="color: var(--gray); font-size: 0.9rem;">Активных уведомлений</div>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: rgba(74, 222, 128, 0.08); border-radius: 12px; border: 2px solid rgba(74, 222, 128, 0.1);">
+                    <div style="font-size: 2.5rem; color: var(--success); margin-bottom: 0.5rem;">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--dark); margin-bottom: 0.5rem;">0₽</div>
+                    <div style="color: var(--gray); font-size: 0.9rem;">Сэкономлено</div>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: rgba(245, 158, 11, 0.08); border-radius: 12px; border: 2px solid rgba(245, 158, 11, 0.1);">
+                    <div style="font-size: 2.5rem; color: var(--warning); margin-bottom: 0.5rem;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: bold; color: var(--dark); margin-bottom: 0.5rem;">0</div>
+                    <div style="color: var(--gray); font-size: 0.9rem;">Анализов цен</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Быстрые действия -->
+        <div class="card">
+            <h3 style="color: var(--success); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-bolt"></i> Быстрые действия
+            </h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <a href="/products/" class="btn btn-primary" style="justify-content: start; padding: 1rem 1.5rem; font-size: 1rem;">
+                    <i class="fas fa-plus-circle"></i> Добавить товар для отслеживания
+                </a>
+                <a href="#" class="btn btn-outline" style="justify-content: start; padding: 1rem 1.5rem; font-size: 1rem;">
+                    <i class="fas fa-search"></i> Найти выгодные предложения
+                </a>
+                <a href="#" class="btn btn-outline" style="justify-content: start; padding: 1rem 1.5rem; font-size: 1rem;">
+                    <i class="fab fa-telegram"></i> Подключить Telegram бота
+                </a>
+                <a href="#" class="btn btn-outline" style="justify-content: start; padding: 1rem 1.5rem; font-size: 1rem;">
+                    <i class="fas fa-history"></i> История отслеживания
+                </a>
+            </div>
+
+            <!-- Прогресс -->
+            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+                <h4 style="color: var(--dark); margin-bottom: 1rem;">Прогресс заполнения профиля</h4>
+                <div style="background: #e2e8f0; border-radius: 10px; height: 8px; margin-bottom: 0.5rem;">
+                    <div style="background: var(--success); width: 60%; height: 100%; border-radius: 10px;"></div>
+                </div>
+                <div style="color: var(--gray); font-size: 0.9rem;">Заполнено на 60%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Недавние активности и настройки в одной строке -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+        <!-- Недавние активности -->
+        <div class="card">
+            <h3 style="color: var(--warning); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-history"></i> Недавние активности
+            </h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(245, 158, 11, 0.05); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; color: var(--warning);">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 500; color: var(--dark);">Регистрация аккаунта</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">{{ user.date_joined|date:"d.m.Y H:i" }}</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding: 2rem; color: var(--gray);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <p>Здесь будет отображаться история ваших действий и отслеживаний</p>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Начните отслеживать товары чтобы увидеть активность</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Настройки уведомлений -->
+        <div class="card">
+            <h3 style="color: var(--secondary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-bell"></i> Настройки уведомлений
+            </h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; justify-content: between; align-items: center; padding: 1rem; background: rgba(67, 97, 238, 0.05); border-radius: 8px;">
+                    <div>
+                        <div style="font-weight: 500; color: var(--dark);">Email уведомления</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Получать уведомления на почту</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div style="display: flex; justify-content: between; align-items: center; padding: 1rem; background: rgba(76, 201, 240, 0.05); border-radius: 8px;">
+                    <div>
+                        <div style="font-weight: 500; color: var(--dark);">Telegram уведомления</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Мгновенные уведомления в Telegram</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div style="display: flex; justify-content: between; align-items: center; padding: 1rem; background: rgba(74, 222, 128, 0.05); border-radius: 8px;">
+                    <div>
+                        <div style="font-weight: 500; color: var(--dark);">Уведомления о скидках</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Уведомлять о снижении цен</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                <button class="btn btn-primary" style="flex: 1;">
+                    <i class="fas fa-save"></i> Сохранить настройки
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Премиум блок -->
+    <div class="card" style="background: linear-gradient(135deg, #8B5CF6, #A855F7); color: white; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <i class="fas fa-crown" style="color: #FCD34D;"></i>
+                    <h3 style="margin: 0; font-size: 1.5rem;">Price Tracker PRO</h3>
+                </div>
+                <p style="margin: 0; opacity: 0.9; line-height: 1.5;">
+                    Получите доступ к расширенной аналитике, приоритетным уведомлениям,
+                    неограниченному количеству отслеживаемых товаров и эксклюзивным функциям!
+                </p>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                        <i class="fas fa-check" style="color: #4ADE80;"></i>
+                        <span>Расширенная аналитика</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                        <i class="fas fa-check" style="color: #4ADE80;"></i>
+                        <span>Приоритетные уведомления</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                        <i class="fas fa-check" style="color: #4ADE80;"></i>
+                        <span>Неограниченное отслеживание</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">299₽/мес</div>
+                <button class="btn" style="background: white; color: #8B5CF6; font-weight: bold; padding: 12px 24px;">
+                    <i class="fas fa-rocket"></i> Попробовать бесплатно
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Достижения -->
+    <div class="card">
+        <h3 style="color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-trophy"></i> Мои достижения
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+            <div style="text-align: center; padding: 1.5rem; background: rgba(67, 97, 238, 0.05); border-radius: 12px; border: 2px dashed rgba(67, 97, 238, 0.3);">
+                <div style="font-size: 2.5rem; color: var(--gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div style="font-weight: 500; color: var(--dark);">Новичок</div>
+                <div style="color: var(--success); font-size: 0.9rem;">Получено</div>
+            </div>
+
+            <div style="text-align: center; padding: 1.5rem; background: rgba(76, 201, 240, 0.05); border-radius: 12px; border: 2px dashed rgba(76, 201, 240, 0.3);">
+                <div style="font-size: 2.5rem; color: var(--gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div style="font-weight: 500; color: var(--dark);">Исследователь</div>
+                <div style="color: var(--gray); font-size: 0.9rem;">Отследить 1 товар</div>
+            </div>
+
+            <div style="text-align: center; padding: 1.5rem; background: rgba(245, 158, 11, 0.05); border-radius: 12px; border: 2px dashed rgba(245, 158, 11, 0.3);">
+                <div style="font-size: 2.5rem; color: var(--gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div style="font-weight: 500; color: var(--dark);">Экономист</div>
+                <div style="color: var(--gray); font-size: 0.9rem;">Сэкономить 1000₽</div>
+            </div>
+
+            <div style="text-align: center; padding: 1.5rem; background: rgba(239, 68, 68, 0.05); border-radius: 12px; border: 2px dashed rgba(239, 68, 68, 0.3);">
+                <div style="font-size: 2.5rem; color: var(--gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-infinity"></i>
+                </div>
+                <div style="font-weight: 500; color: var(--dark);">PRO</div>
+                <div style="color: var(--gray); font-size: 0.9rem;">Активировать PRO</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 24px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .slider {
+        background-color: var(--success);
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }
+
+    .btn {
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+</style>
+{% endblock %}
