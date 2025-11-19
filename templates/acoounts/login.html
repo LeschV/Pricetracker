@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вход - Price Tracker{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 400px; margin: 2rem auto;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <div style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;">
+            <i class="fas fa-sign-in-alt"></i>
+        </div>
+        <h1 style="color: var(--secondary);">Вход в аккаунт</h1>
+        <p style="color: var(--gray);">Войдите в свою учетную запись</p>
+    </div>
+
+    {% if messages %}
+    <div style="margin-bottom: 1rem;">
+        {% for message in messages %}
+        <div
+            style="padding: 0.75rem; border-radius: 8px; background: {% if message.tags == 'success' %}var(--success){% else %}var(--danger){% endif %}; color: white; text-align: center;">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Имя пользователя:</label>
+            {{ form.username }}
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Пароль:</label>
+            {{ form.password }}
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            <i class="fas fa-sign-in-alt"></i> Войти
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #ddd;">
+        <p>Нет аккаунта? <a href="{% url 'accounts:register' %}" style="color: var(--primary);">Зарегистрируйтесь</a>
+        </p>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary);
+        outline: none;
+    }
+</style>
+{% endblock %}
